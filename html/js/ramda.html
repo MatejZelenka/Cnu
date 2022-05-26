@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const languages = [
+  { name: 'JavaScript', satisfaction: 10, type: 'functional' },
+  { name: 'Java', satisfaction: 5, type: 'object-oriented'},
+  { name: 'Kotlin', satisfaction: 8, type: 'functional' },
+  { name: '.NET', satisfaction: 3, type: 'object-oriented'},
+  { name: 'Elm', satisfaction: 10, type: 'functional' },
+  { name: 'Rust', satisfaction: 8, type: 'functional'},
+  { name: 'Go', satisfaction: 8, type: 'unknown' },
+  { name: 'Php', satisfaction: 0, type: 'object-oriented'},
+];
+
+// 1. Give us array of language names which contains `Java` in name.
+
+const languageNames = languages
+  .map (({name}) => {
+    if (name === 'Java') return name;
+    })
+  .filter(language => !!language);
+
+console.log(languageNames);
+// 2. Give us array of language names with satisfaction greater or equals to `5`.
+
+const satisfaction = languages
+  .map (({name, satisfaction}) => {
+    if (satisfaction >= 5) return name;
+  })
+  .filter(language => !!language);
+
+console.log(satisfaction);
+
+// 3. Give us array of language names, but if a language satisfaction is lower than `3`, instead of name use string `Filipe já to sem dávat nebudu!`.
+
+const phpHate = languages.map(({satisfaction, name}) => {
+  return (satisfaction < 3) ? 'Filipe, já to sem dávat nebudu' : (name);
+});
+console.log(phpHate);
+
+// 4. Give us the average (arithmetic mean) satisfaction of `functional` languages.
+
+const functional = languages.filter(language => language.type === 'functional');
+const functionalAverage = functional.reduce((a, b) => a + b.satisfaction, 0) / functional.length;
+console.log(functionalAverage);
+
+// 5. Give us language names grouped by type: `{"object-oriented": ["Java", ".NET", "Php"], ...}`.
+
+const types = languages.reduce((group, language) => {
+  const category = language.type;
+  group[category] = group[category] || [];
+  group[category].push(language);
+  return group;
+}, {})
+console.log(types);
+
+// 6. Give us language names grouped by satisfaction categories ("A": 10-8, "B": 7-5, C: 5-3, "Garbage": 3-0): `{A: [...], B: [...], ...}`.
+
+const sat = (satisfaction) => {
+  if (satisfaction >= 8) return 'A';
+  if (satisfaction >= 5) return 'B';
+  if (satisfaction >= 3) return 'C';
+  return 'Garbage';
+}
+
+const categories = languages.reduce((group, language) => {
+  const category = sat(language.satisfaction);
+  group[category] = group[category] || [];
+  group[category].push(language);
+  return group;
+}, {})
+
+console.log(categories);
+
+// 7. Give us average satisfaction grouped by language type: `{"object-oriented": 2.66, ...}`.
+
+const average = (typeSum, length) => {
+  return typeSum / length;
+}
+
+const func = languages.filter(language => language.type === 'functional');
+const obj = languages.filter(language => language.type === 'object-oriented');
+const unknown = languages.filter(language => language.type === 'unknown');
+
+const funcSum = func.reduce((a, b) => a + b.satisfaction, 0);
+const objSum = obj.reduce((a, b) => a + b.satisfaction, 0);
+const unknowSum = unknown.reduce((a, b) => a + b.satisfaction, 0);
+
+const langType = (language) => {
+  if (language === 'object-oriented') return language + ': ' + average(objSum, obj.length);
+  if (language === 'functional') return language + ': ' + average(funcSum, func.length);
+  return language + ': ' + average(unknowSum, unknown.length);
+}
+
+const newCategories = languages.reduce((group, language) => {
+  const category = langType(language.type);
+  group[category] = group[category] || [];
+  group[category].push(language);
+  return group;
+}, {});
+
+console.log(newCategories);
+
+</script>
+</html>
+<template>
+  const sum = (type) => {
+    type.reduce((a,b) => a + b.satisfaction, 0);
+  }
+  
+  const filterObjects = (langs, x) => {
+    langs.filter(lang => lang.type === `${x}`);
+    return sum(x);
+  }
+</template>

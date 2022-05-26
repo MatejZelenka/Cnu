@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 300px;
+      margin: 1rem auto;
+    }
+
+    form .search {
+      padding: 1rem;
+    }
+
+    .suggestions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .suggestions li {
+      margin: 1rem;
+      border: 1px solid;
+      text-align: center;
+      padding: .5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+  const cities = [];
+
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(data => cities.push(...data))
+
+
+
+  function findCity(text, cities) {
+    return cities.filter(place => {
+      const word = new RegExp(text, 'gi');
+      return place.city.match(word) || place.state.match(word);
+    })
+  }
+
+  function eventCall() {
+    const result = findCity(this.value, cities);
+
+    if (this.value != '') {
+      let x = result.map(place => {
+        return `
+          <li>
+            ${place.city}, ${place.state}
+          </li>
+        `;
+      }).join('');
+      ul.innerHTML = x;
+    } else {
+      return ul.innerHTML = '<li> Enter text into the input field </li>'
+    }
+  }
+
+  const input = document.querySelector('.search');
+  const ul = document.querySelector('.suggestions');
+
+  input.addEventListener('input', eventCall);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Intro: Tasks</title>
+  </head>
+  <body>
+    <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    <script>
+      // 1. Use the console.log code in the editor to log your age to the console.
+        console.log(24);
+      // 2. log the string 'JavaScript' to the console.
+        console.log('JavaScript');
+      // 3. Print the number 20.49 to the console.
+        console.log(20.49);
+      // 4. Inside of a console.log(), add 3.5 to your age.
+      //    This is the age you’ll be when we start sending people to live on Mars.
+        console.log(24 + 3.5);
+      // 5. On a new line write another console.log(). Inside the parentheses, take the current year and subtract 1969.
+      //    The answer is how many years it’s been since the 1969 moon landing.
+        console.log(2022 - 1969);
+      // 6. Create another console.log(). Inside the parentheses divide 65 by 240.
+        console.log(65 / 240);
+      // 7. Create one last console.log(). Inside the parentheses, multiply 0.2708 by 100.
+      //    That’s the percent of the sun that is made up of helium.
+      //    Assuming we could stand on the sun, we’d all sound like chipmunks!
+        console.log(0.2708 * 100);
+      // 8. Inside a console.log() statement, concatenate the two strings 'Hello' and 'World'.
+        console.log('Hello ' + 'World');
+      // 9. Log the number of characters in the following string to the console:
+      //    'Teaching the world how to code'
+        console.log('Teaching the world how to code'.length);
+      // 10. log the string 'cnu' to the console in all capital letters.
+        console.log('cnu'.toUpperCase());
+      // 11. Use the method to remove the whitespace at the beginning and end of the string
+      console.log('    Remove whitespace   '.trim());
+
+      // 12. returns the smallest integer greater than or equal to a decimal number.
+      console.log(Math.ceil(12.8));
+
+      // 13. find a method on the built-in `Number` object that checks if a number is an integer.
+      console.log(Number.isInteger(2022));
+    </script>
+  </body>
+</html>
+
+
+<script>
+  field.onclick = function(event) {
+
+      let coords = this.getBoundingClientRect();
+
+      let posX = event.clientX - coords.left - field.clientLeft - ball.clientWidth / 2;
+      let posY = event.clientY - coords.top - field.clientTop - ball.clientHeight / 2
+
+      if (posX < 0) posX = 0;
+      if (posY < 0) posY = 0;
+
+      if (posX + ball.clientWidth > field.clientWidth ) {
+        posX = field.clientWidth - ball.clientWidth;
+      }
+
+      if (posY + ball.clientHeight > field.clientHeight ) {
+        posY = field.clientHeight - ball.clientHeight;
+      }
+
+      ball.style.left = `${posX}px`;
+      ball.style.top = `${posY}px`;
+    }
+</script>
+
+//consecutive number
+
+function firstNonConsecutive (arr) {
+  let number = arr;
+  let prevNumber;
+  
+  let consecutiveNumbers = [];
+  
+  for (let i = 0; i < number.length; i++) {
+    
+    prevNumber = number[i];
+    let nextNumber = number[i+1];
+    
+    if (nextNumber === prevNumber + 1) {
+      consecutiveNumbers.push(prevNumber);
+    } else {
+      return nextNumber;
+    }
+  }
+  return consecutiveNumbers;
+}
+
+//includes
+
+function check(a, x) {
+  return a.includes(x) ? true : false;
+}
+
+//negative, positive
+
+function countPositivesSumNegatives(input) {
+  let numbers = input;
+  
+  const positive = numbers.filter(number => number > 0).length;
+  const negative = numbers.filter(number => number < 0).reduce((a, b) => a + b);
+  
+  numbers = [positive, negative];
+  return numbers;
+}
+
+//invert
+
+function invert(array) {
+  let inverted = [];
+  for (let i = 0; i < array.length; i++) {
+    inverted.push(array[i] * -1);
+  }
+  return inverted;
+}
