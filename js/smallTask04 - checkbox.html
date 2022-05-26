@@ -98,23 +98,20 @@
   let lastChecked;
 
   function handleCheck(e) {
-    if (e.shiftKey && this != lastChecked) {
-      checkBoxes(lastChecked, this);
-    }
-  }
+    let inBetween = false;
 
-  function checkBoxes(first, second) {
-    if (inputs.indexOf(first) > inputs.indexOf(second)) {
-      [second, first] = [first, second];
-    }
+    if (e.shiftKey && this.checked) {
+          inputs.forEach((input) => {
+            if (input === this || input === lastChecked) {
+              inBetween = !inBetween;
+            }
 
-    intermediateBoxes(first, second).forEach(box => box.checked = true);
-  }
-
-  function intermediateBoxes(start, end) {
-    return inputs.filter((item, key) => {
-      return inputs.indexOf(start) < key && key < inputs.indexOf(end);
-    });
+            if (inBetween) {
+              input.checked = true;
+            }
+          });
+        }
+    lastChecked = this;
   }
 
 
